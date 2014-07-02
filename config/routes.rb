@@ -1,5 +1,6 @@
 GeoLocator::Application.routes.draw do
   get 'locators' => 'locators#index'
+  post '/' => 'locators#new_request'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
