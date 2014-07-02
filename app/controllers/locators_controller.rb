@@ -23,6 +23,8 @@ class LocatorsController < ApplicationController
     render :index
   end
 
+  private 
+
   def get_my_location(ip)
     SimpleGeolocation::Geocoder.new(ip).geocode!
   end
