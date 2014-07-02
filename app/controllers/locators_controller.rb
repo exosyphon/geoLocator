@@ -8,7 +8,7 @@ class LocatorsController < ApplicationController
     if ip == '127.0.0.1'
       ip = '74.125.113.104'
     end
-    @location = SimpleGeolocation::Geocoder.new(ip).geocode!
+    @location = get_my_location(ip)
   end
 
   def new_request
@@ -18,8 +18,12 @@ class LocatorsController < ApplicationController
       ip = '74.125.113.104'
     end
 
-    @location = SimpleGeolocation::Geocoder.new(ip).geocode!
+    @location = get_my_location(ip)
 
     render :index
+  end
+
+  def get_my_location(ip)
+    SimpleGeolocation::Geocoder.new(ip).geocode!
   end
 end
