@@ -17,6 +17,8 @@ class LocatorsController < ApplicationController
         @location = get_my_location(ip)
       end
     else
+      puts 'getting here'
+      puts ip
       @location = get_my_location(ip)
     end
   end
