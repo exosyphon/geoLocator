@@ -24,10 +24,6 @@ class LocatorsController < ApplicationController
   def new_request
     ip = params[:ip_input]
 
-    if ip.blank? || ip !~ /\d+\.\d+\.\d+\.\d+/
-      ip = '74.125.113.104'
-    end
-
     @location = get_my_location(ip)
 
     if @location.nil?
