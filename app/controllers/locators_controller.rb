@@ -7,7 +7,7 @@ class LocatorsController < ApplicationController
     x_forwarded_ip = request.env['HTTP_X_FORWARDED_FOR']
     ip = request.remote_ip
 
-    if ip == '127.0.0.1' || ip.nil?
+    if ip == '127.0.0.1' || get_my_location(ip).nil?
       ip = '74.125.113.104'
     end
 
@@ -18,13 +18,6 @@ class LocatorsController < ApplicationController
       end
     else
       @location = get_my_location(ip)
-    end
-
-    if @location.nil?
-
-      render :text => "#{ip}  |  #{x_forwarded_ip}", :status => 400
-    else
-      render :index
     end
   end
 
