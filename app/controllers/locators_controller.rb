@@ -30,7 +30,11 @@ class LocatorsController < ApplicationController
 
     @location = get_my_location(ip)
 
-    render :index
+    if @location.nil?
+      render 404
+    else
+      render :index
+    end
   end
 
   private
