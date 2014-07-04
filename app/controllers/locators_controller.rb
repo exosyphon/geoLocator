@@ -5,15 +5,20 @@ class LocatorsController < ApplicationController
 
   def index
     @one = " x_forwarded #{request.env['HTTP_X_FORWARDED_FOR']}"
-    @two = " remote_ip #{request.remote_ip}"
-    @three = " ip #{request.ip}"
 
+    x_forwarded_ip = request.env['HTTP_X_FORWARDED_FOR']
     ip = request.remote_ip
 
     if ip == '127.0.0.1'
       ip = '74.125.113.104'
     end
-    @location = get_my_location(ip)
+
+    if x_forwarded_ip.present?
+      @two = x_forwarded_ip[0]
+      @location = get_my_location(@two)
+    else
+      @location = get_my_location(ip)
+    end
   end
 
   def new_request
