@@ -7,17 +7,18 @@ class LocatorsController < ApplicationController
     x_forwarded_ip = request.env['HTTP_X_FORWARDED_FOR']
     ip = request.remote_ip
 
-    if ip == '127.0.0.1' || get_my_location(ip).nil?
+    if get_my_location(ip).nil?
       ip = '74.125.113.104'
     end
 
+    remote_ip_location = get_my_location(ip)
     if x_forwarded_ip.present?
       @location = get_my_location(x_forwarded_ip.split(',')[0])
       if @location.nil?
-        @location = get_my_location(ip)
+        @location = remote_ip_location
       end
     else
-      @location = get_my_location(ip)
+      @location = remote_ip_location
     end
   end
 
