@@ -23,6 +23,12 @@ class LocatorsController < ApplicationController
     else
       @location = get_my_location(ip)
     end
+
+    if @location.nil?
+      render :text => 'Invalid IP Address', :status => 400
+    else
+      render :index
+    end
   end
 
   def new_request
