@@ -24,7 +24,7 @@ class LocatorsController < ApplicationController
   def new_request
     ip = params[:ip_input]
 
-    if ip.blank? || ip !~ /\d+\.\d+\.\d+\.\d+/ || ip == '127.0.0.1'
+    if ip.blank? || ip !~ /\d+\.\d+\.\d+\.\d+/
       ip = '74.125.113.104'
     end
 
