@@ -4,9 +4,14 @@ class LocatorsController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => :new_request
 
   def index
-    @one = " stuff #{request.env['X-Forwarded-For']}"
+    @one = " stuff wtf#{request.env['HTTP_X_FORWARDED_FOR'].inspect}"
 
-    ip = request.remote_ip
+    if request.env['HTTP_X_FORWARDED_FOR'].nil?
+      ip = request.remote_ip
+    else
+      ip = request.env['HTTP_X_FORWARDED_FOR']
+    end
+
     if ip == '127.0.0.1'
       ip = '74.125.113.104'
     end
