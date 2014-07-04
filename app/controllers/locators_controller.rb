@@ -14,8 +14,11 @@ class LocatorsController < ApplicationController
     end
 
     if x_forwarded_ip.present?
-      @two = x_forwarded_ip[0]
+      @two = x_forwarded_ip.split(',')[0]
       @location = get_my_location(@two)
+      if @location.nil?
+        @location = get_my_location(ip)
+      end
     else
       @location = get_my_location(ip)
     end
