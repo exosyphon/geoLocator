@@ -4,6 +4,9 @@ class LocatorsController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => :new_request
 
   def index
+    @one = " stuff #{request.env['REMOTE_ADDR']}"
+    @two = " stuff #{request.env['HTTP_X_FORWARDED_FOR']}"
+    @three =  " stuff #{request.env['HTTP_CLIENT_IP']}"
     ip = request.remote_ip
     if ip == '127.0.0.1'
       ip = '74.125.113.104'
@@ -23,7 +26,7 @@ class LocatorsController < ApplicationController
     render :index
   end
 
-  private 
+  private
 
   def get_my_location(ip)
     SimpleGeolocation::Geocoder.new(ip).geocode!
